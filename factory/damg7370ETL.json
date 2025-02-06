@@ -1,0 +1,9 @@
+{
+	"name": "damg7370ETL",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "50b3b4f0-4275-4b69-b9b3-221039362f05",
+		"tenantId": "a8eec281-aaa3-4dae-ac9b-9a398b9215e7"
+	}
+}
