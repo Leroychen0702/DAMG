@@ -83,7 +83,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": false,
+							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -102,86 +102,6 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "License_Issue Date",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "License Issue Date",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "License_Number",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "License Number",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "Animals_Name",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Animal's Name",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "Species",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Species",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "Primary_Breed",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Primary Breed",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "Secondary_Breed",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "Secondary Breed",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							},
-							{
-								"source": {
-									"name": "ZIP_Code",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "ZIP Code",
-									"type": "String",
-									"physicalType": "UTF8"
-								}
-							}
-						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -191,7 +111,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText2",
+						"referenceName": "DelimitedTextModified",
 						"type": "DatasetReference"
 					}
 				],
