@@ -5,14 +5,7 @@
 			{
 				"name": "Parquet_2_Snowflake",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Tsv2Parquet",
-						"dependencyConditions": [
-							"Completed"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "00:30:00",
 					"retry": 1,
@@ -61,7 +54,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SnowflakeTable3",
+						"referenceName": "SnowflakeTable4",
 						"type": "DatasetReference"
 					}
 				]
@@ -111,7 +104,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText2",
+						"referenceName": "DelimitedText10",
 						"type": "DatasetReference"
 					}
 				],
@@ -175,6 +168,70 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Tsv2Parquet",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "00:30:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureBlobStorageLEO",
+							"type": "LinkedServiceReference"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Parquet1",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": {
+								"value": "@variables('Myfilename')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SnowflakeTable5",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"variables": {
