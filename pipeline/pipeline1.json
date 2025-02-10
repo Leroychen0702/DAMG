@@ -100,7 +100,10 @@
 						"type": "SnowflakeV2Sink",
 						"preCopyScript": "TRUNCATE TABLE TEMP_SCHEMA.PET_LICENSE_STAGE;\n",
 						"importSettings": {
-							"type": "SnowflakeImportCopyCommand"
+							"type": "SnowflakeImportCopyCommand",
+							"additionalFormatOptions": {
+								"DATE_FORMAT": "MONTH DD YYYY"
+							}
 						}
 					},
 					"enableStaging": true,
