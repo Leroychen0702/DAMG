@@ -65,7 +65,7 @@
 				]
 			},
 			{
-				"name": "Copy data1",
+				"name": "Parquet2Snow",
 				"type": "Copy",
 				"dependsOn": [
 					{
