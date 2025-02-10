@@ -12,7 +12,7 @@
 				"type": "AzureBlobStorageLocation",
 				"container": "gold"
 			},
-			"columnDelimiter": "\t",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
