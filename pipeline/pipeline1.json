@@ -102,7 +102,7 @@
 						"importSettings": {
 							"type": "SnowflakeImportCopyCommand",
 							"additionalFormatOptions": {
-								"DATE_FORMAT": "MONTH DD YYYY"
+								"DATE_FORMAT": "'YYYY-MM-DD'"
 							}
 						}
 					},
