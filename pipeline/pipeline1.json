@@ -86,7 +86,7 @@
 					"sink": {
 						"type": "ParquetSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
 							"type": "ParquetWriteSettings"
@@ -110,11 +110,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Parquet1",
-						"type": "DatasetReference",
-						"parameters": {
-							"filename": "pet_lic.parquet"
-						}
+						"referenceName": "Parquet2",
+						"type": "DatasetReference"
 					}
 				]
 			},
