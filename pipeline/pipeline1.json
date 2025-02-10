@@ -29,8 +29,7 @@
 					"sink": {
 						"type": "ParquetSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings",
-							"copyBehavior": "MergeFiles"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
 							"type": "ParquetWriteSettings"
@@ -54,13 +53,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText10",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "Parquet2",
+						"referenceName": "Parquet1",
 						"type": "DatasetReference"
 					}
 				]
@@ -90,6 +89,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
+							"wildcardFileName": "*.parquet",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -116,7 +116,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "Parquet2",
+						"referenceName": "Parquet1",
 						"type": "DatasetReference"
 					}
 				],
