@@ -15,10 +15,14 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "SnowflakeTable6",
+						"referenceName": "SnowflakeTable7",
 						"type": "DatasetReference"
 					},
-					"name": "sink"
+					"name": "sink",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureBlobStorageLEO",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
@@ -79,7 +83,6 @@
 				"          PERP_RACE,",
 				"          X_COORD_CD,",
 				"          Y_COORD_CD,",
-				"          LATITUDE = Latitude,",
 				"          LONGITUDE = Longitude,",
 				"          NEW_GEOREFERENCED_COLUMN = {New Georeferenced Column}",
 				"     ),",
@@ -87,6 +90,26 @@
 				"     skipDuplicateMapOutputs: true) ~> select",
 				"select sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          ARREST_KEY as string,",
+				"          ARREST_DATE as string,",
+				"          PD_CD as string,",
+				"          PD_DESC as string,",
+				"          KY_CD as string,",
+				"          OFNS_DESC as string,",
+				"          LAW_CODE as string,",
+				"          LAW_CAT_CD as string,",
+				"          ARREST_BORO as string,",
+				"          ARREST_PRECINCT as string,",
+				"          JURISDICTION_CODE as string,",
+				"          AGE_GROUP as string,",
+				"          PERP_SEX as string,",
+				"          PERP_RACE as string,",
+				"          X_COORD_CD as string,",
+				"          Y_COORD_CD as string,",
+				"          LONGITUDE as string,",
+				"          NEW_GEOREFERENCED_COLUMN as string",
+				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
 				"     updateable:false,",
@@ -95,7 +118,27 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     stageInsert: true) ~> sink"
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          ARREST_KEY,",
+				"          ARREST_DATE,",
+				"          PD_CD,",
+				"          PD_DESC,",
+				"          KY_CD,",
+				"          OFNS_DESC,",
+				"          LAW_CODE,",
+				"          LAW_CAT_CD,",
+				"          ARREST_BORO,",
+				"          ARREST_PRECINCT,",
+				"          JURISDICTION_CODE,",
+				"          AGE_GROUP,",
+				"          PERP_SEX,",
+				"          PERP_RACE,",
+				"          X_COORD_CD,",
+				"          Y_COORD_CD,",
+				"          LONGITUDE,",
+				"          NEW_GEOREFERENCED_COLUMN",
+				"     )) ~> sink"
 			]
 		}
 	}
