@@ -504,6 +504,106 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeTable7')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [
+					{
+						"name": "ARREST_KEY",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ARREST_DATE",
+						"type": "DATE"
+					},
+					{
+						"name": "PD_CD",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "PD_DESC",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "KY_CD",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "OFNS_DESC",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "LAW_CODE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "LAW_CAT_CD",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ARREST_BORO",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "ARREST_PRECINCT",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "JURISDICTION_CODE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "AGE_GROUP",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "PERP_SEX",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "PERP_RACE",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "X_COORD_CD",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "Y_COORD_CD",
+						"type": "VARCHAR"
+					},
+					{
+						"name": "LONGITUDE",
+						"type": "FLOAT"
+					},
+					{
+						"name": "NEW_GEOREFERENCED_COLUMN",
+						"type": "VARCHAR"
+					}
+				],
+				"typeProperties": {
+					"schema": "TEMP_SCHEMA",
+					"table": "ARREST_DATA"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Snowflake1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageLEO')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -583,10 +683,14 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "SnowflakeTable6",
+								"referenceName": "SnowflakeTable7",
 								"type": "DatasetReference"
 							},
-							"name": "sink"
+							"name": "sink",
+							"rejectedDataLinkedService": {
+								"referenceName": "AzureBlobStorageLEO",
+								"type": "LinkedServiceReference"
+							}
 						}
 					],
 					"transformations": [
@@ -623,7 +727,7 @@
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false) ~> source",
-						"source derive(ARREST_KEY = toDate(ARREST_KEY,'MM/dd/yyyy'),",
+						"source derive(ARREST_DATE = toDate(ARREST_DATE, 'MM/dd/yyyy'),",
 						"          PD_CD = iif(isNull(PD_CD), -1, toInteger(PD_CD)),",
 						"          KY_CD = iif(isNull(KY_CD), -1, toInteger(KY_CD)),",
 						"          LAW_CAT_CD = iifNull(LAW_CAT_CD, 'UNKNOWN'),",
@@ -647,14 +751,33 @@
 						"          PERP_RACE,",
 						"          X_COORD_CD,",
 						"          Y_COORD_CD,",
-						"          Latitude,",
-						"          Longitude,",
-						"          {New Georeferenced Column}",
+						"          LONGITUDE = Longitude,",
+						"          NEW_GEOREFERENCED_COLUMN = {New Georeferenced Column}",
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> select",
 						"select sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          ARREST_KEY as string,",
+						"          ARREST_DATE as string,",
+						"          PD_CD as string,",
+						"          PD_DESC as string,",
+						"          KY_CD as string,",
+						"          OFNS_DESC as string,",
+						"          LAW_CODE as string,",
+						"          LAW_CAT_CD as string,",
+						"          ARREST_BORO as string,",
+						"          ARREST_PRECINCT as string,",
+						"          JURISDICTION_CODE as string,",
+						"          AGE_GROUP as string,",
+						"          PERP_SEX as string,",
+						"          PERP_RACE as string,",
+						"          X_COORD_CD as string,",
+						"          Y_COORD_CD as string,",
+						"          LONGITUDE as string,",
+						"          NEW_GEOREFERENCED_COLUMN as string",
+						"     ),",
 						"     deletable:false,",
 						"     insertable:true,",
 						"     updateable:false,",
@@ -663,13 +786,34 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     stageInsert: true) ~> sink"
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          ARREST_KEY,",
+						"          ARREST_DATE,",
+						"          PD_CD,",
+						"          PD_DESC,",
+						"          KY_CD,",
+						"          OFNS_DESC,",
+						"          LAW_CODE,",
+						"          LAW_CAT_CD,",
+						"          ARREST_BORO,",
+						"          ARREST_PRECINCT,",
+						"          JURISDICTION_CODE,",
+						"          AGE_GROUP,",
+						"          PERP_SEX,",
+						"          PERP_RACE,",
+						"          X_COORD_CD,",
+						"          Y_COORD_CD,",
+						"          LONGITUDE,",
+						"          NEW_GEOREFERENCED_COLUMN",
+						"     )) ~> sink"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DelimitedText3')]",
-				"[concat(variables('factoryId'), '/datasets/SnowflakeTable6')]"
+				"[concat(variables('factoryId'), '/datasets/SnowflakeTable7')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageLEO')]"
 			]
 		}
 	]
