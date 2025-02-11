@@ -55,7 +55,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source",
-				"source derive(ARREST_KEY = toDate(ARREST_KEY,'MM/dd/yyyy'),",
+				"source derive(ARREST_DATE = toDate(ARREST_DATE, 'MM/dd/yyyy'),",
 				"          PD_CD = iif(isNull(PD_CD), -1, toInteger(PD_CD)),",
 				"          KY_CD = iif(isNull(KY_CD), -1, toInteger(KY_CD)),",
 				"          LAW_CAT_CD = iifNull(LAW_CAT_CD, 'UNKNOWN'),",
