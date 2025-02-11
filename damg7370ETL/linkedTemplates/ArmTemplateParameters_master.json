@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "damg7370ETL"
+		},
+		"Snowflake1_password": {
+			"value": ""
+		},
+		"AzureBlobStorageLEO_sasUri": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_LS_properties_typeProperties_url": {
+			"value": "https://damg7370leo.dfs.core.windows.net/"
+		},
+		"AzureKeyVault_LS_properties_typeProperties_baseUrl": {
+			"value": "https://damg7370.vault.azure.net/"
+		},
+		"Snowflake1_properties_typeProperties_database": {
+			"value": "TEMP_DB"
+		},
+		"Snowflake1_properties_typeProperties_role": {
+			"value": "TEMP_ROLE"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
