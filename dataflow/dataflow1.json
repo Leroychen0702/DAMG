@@ -1,0 +1,102 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"name": "source"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTable6",
+						"type": "DatasetReference"
+					},
+					"name": "sink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn",
+					"description": "PERP_SEX, PERP_RACE, X_COORD_CD, Y_COORD_CD, Latitude, Longitude, New Georeferenced Column, column1'"
+				},
+				{
+					"name": "select"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ARREST_KEY as string,",
+				"          ARREST_DATE as string,",
+				"          PD_CD as string,",
+				"          PD_DESC as string,",
+				"          KY_CD as string,",
+				"          OFNS_DESC as string,",
+				"          LAW_CODE as string,",
+				"          LAW_CAT_CD as string,",
+				"          ARREST_BORO as string,",
+				"          ARREST_PRECINCT as string,",
+				"          JURISDICTION_CODE as string,",
+				"          AGE_GROUP as string,",
+				"          PERP_SEX as string,",
+				"          PERP_RACE as string,",
+				"          X_COORD_CD as string,",
+				"          Y_COORD_CD as string,",
+				"          Latitude as string,",
+				"          Longitude as string,",
+				"          {New Georeferenced Column} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source",
+				"source derive(ARREST_KEY = toDate(ARREST_KEY,'MM/dd/yyyy'),",
+				"          PD_CD = iif(isNull(PD_CD), -1, toInteger(PD_CD)),",
+				"          KY_CD = iif(isNull(KY_CD), -1, toInteger(KY_CD)),",
+				"          LAW_CAT_CD = iifNull(LAW_CAT_CD, 'UNKNOWN'),",
+				"          ARREST_PRECINCT = toInteger(ARREST_PRECINCT),",
+				"          Latitude = iif(isNull(Latitude), -999.99, toFloat(Latitude)),",
+				"          Longitude = iif(isNull(Longitude), -999.99, toFloat(Longitude))) ~> derivedColumn",
+				"derivedColumn select(mapColumn(",
+				"          ARREST_KEY,",
+				"          ARREST_DATE,",
+				"          PD_CD,",
+				"          PD_DESC,",
+				"          KY_CD,",
+				"          OFNS_DESC,",
+				"          LAW_CODE,",
+				"          LAW_CAT_CD,",
+				"          ARREST_BORO,",
+				"          ARREST_PRECINCT,",
+				"          JURISDICTION_CODE,",
+				"          AGE_GROUP,",
+				"          PERP_SEX,",
+				"          PERP_RACE,",
+				"          X_COORD_CD,",
+				"          Y_COORD_CD,",
+				"          Latitude,",
+				"          Longitude,",
+				"          {New Georeferenced Column}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select",
+				"select sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true) ~> sink"
+			]
+		}
+	}
+}
