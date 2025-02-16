@@ -13,14 +13,14 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "SnowflakeBreed",
+						"referenceName": "BREED2",
 						"type": "DatasetReference"
 					},
 					"name": "source2"
 				},
 				{
 					"dataset": {
-						"referenceName": "SnowflakeBreed",
+						"referenceName": "BREED2",
 						"type": "DatasetReference"
 					},
 					"name": "source3"
@@ -29,7 +29,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "SnowflakeTable9",
+						"referenceName": "BREED",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
