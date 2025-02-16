@@ -1286,6 +1286,9 @@
 					"transformations": [
 						{
 							"name": "surrogateKey1"
+						},
+						{
+							"name": "select1"
 						}
 					],
 					"scriptLines": [
@@ -1303,7 +1306,15 @@
 						"source1 keyGenerate(output(LOCATION_SK as long),",
 						"     startAt: 1L,",
 						"     stepValue: 1L) ~> surrogateKey1",
-						"surrogateKey1 sink(allowSchemaDrift: true,",
+						"surrogateKey1 select(mapColumn(",
+						"          STATE = state_abbr,",
+						"          ZIP_CODE = zipcode,",
+						"          CITY = city,",
+						"          LOCATION_SK",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
 						"     insertable:true,",
@@ -1312,13 +1323,7 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     stageInsert: true,",
-						"     mapColumn(",
-						"          state_abbr,",
-						"          ZIP_CODE = zipcode,",
-						"          CITY = city,",
-						"          LOCATION_SK",
-						"     )) ~> sink1"
+						"     stageInsert: true) ~> sink1"
 					]
 				}
 			},
