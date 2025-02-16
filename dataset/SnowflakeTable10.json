@@ -1,0 +1,16 @@
+{
+	"name": "SnowflakeTable10",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "TEMP_DB",
+			"table": "PET_LICENSE_STAGE"
+		}
+	}
+}

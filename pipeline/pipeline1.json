@@ -118,7 +118,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SnowflakeTable8",
+						"referenceName": "SnowflakeTable12",
 						"type": "DatasetReference"
 					}
 				]
