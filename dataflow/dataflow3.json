@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DelimitedText4",
+						"referenceName": "DelimitedText5",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -31,7 +31,7 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          state_fips as string,",
+				"          state_fips as short,",
 				"          state as string,",
 				"          state_abbr as string,",
 				"          zipcode as string,",
