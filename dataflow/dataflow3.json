@@ -12,13 +12,14 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "surrogateKey1"
-				},
-				{
-					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -28,11 +29,13 @@
 				"source1 keyGenerate(output(LOCATION_SK as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
-				"surrogateKey1 select(mapColumn(",
-				"          LOCATION_SK",
-				"     ),",
+				"surrogateKey1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          LOCATION_SK",
+				"     )) ~> sink1"
 			]
 		}
 	}
