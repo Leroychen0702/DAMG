@@ -1,0 +1,16 @@
+{
+	"name": "SnowflakeTable10",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "TEMP_SCHEMA",
+			"table": "PET_LICENSES_DAILY_CNT_FACT"
+		}
+	}
+}
