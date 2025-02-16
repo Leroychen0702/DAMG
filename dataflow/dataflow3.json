@@ -52,7 +52,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     stageInsert: true,",
 				"     mapColumn(",
-				"          state_abbr,",
+				"          STATE = state_abbr,",
 				"          ZIP_CODE = zipcode,",
 				"          CITY = city,",
 				"          LOCATION_SK",
