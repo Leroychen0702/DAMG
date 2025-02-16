@@ -1,5 +1,5 @@
 {
-	"name": "SnowflakeTable12",
+	"name": "SnowflakeTablePET",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Snowflake1",
