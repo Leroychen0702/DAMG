@@ -1,5 +1,5 @@
 {
-	"name": "SnowflakeTable7",
+	"name": "SnowflakeTableARREST",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Snowflake1",
