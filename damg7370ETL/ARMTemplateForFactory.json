@@ -1647,7 +1647,13 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     stageInsert: true) ~> sink1"
+						"     stageInsert: true,",
+						"     mapColumn(",
+						"          ISSUED_DATE_ID2 = LICENSE_ISSUE_DATE,",
+						"          BREED_SK,",
+						"          LICENSE_NUMBER,",
+						"          PET_LICENSE_SK",
+						"     )) ~> sink1"
 					]
 				}
 			},
