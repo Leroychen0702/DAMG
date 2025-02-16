@@ -1,0 +1,16 @@
+{
+	"name": "SnowflakeTable9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "TEMP_SCHEMA",
+			"table": "BREED_DIM_1"
+		}
+	}
+}
